@@ -1,0 +1,1300 @@
+name: "srib_model"
+
+input: "data"
+input_dim: 1
+input_dim: 3
+input_dim: 224
+input_dim: 224
+layer {
+	bottom: "data"
+	top: "conv1"
+	name: "conv1"
+	type: "Convolution"
+	convolution_param {
+		num_output: 64
+		kernel_size: 7
+		pad: 3
+		stride: 2
+	}
+}
+
+layer {
+	bottom: "conv1"
+	top: "conv1"
+	name: "bn_conv1"
+	type: "BatchNorm"
+	batch_norm_param {
+		use_global_stats: true
+	}
+}
+
+layer {
+	bottom: "conv1"
+	top: "conv1"
+	name: "scale_conv1"
+	type: "Scale"
+	scale_param {
+		bias_term: true
+	}
+}
+
+layer {
+	bottom: "conv1"
+	top: "conv1"
+	name: "conv1_relu"
+	type: "ReLU"
+}
+
+layer {
+	bottom: "conv1"
+	top: "pool1"
+	name: "pool1"
+	type: "Pooling"
+	pooling_param {
+		kernel_size: 3
+		stride: 2
+		pool: MAX
+	}
+}
+
+layer {
+	bottom: "pool1"
+	top: "res2a_branch1"
+	name: "res2a_branch1"
+	type: "Convolution"
+	convolution_param {
+		num_output: 256
+		kernel_size: 1
+		pad: 0
+		stride: 1
+		bias_term: false
+	}
+}
+
+layer {
+	bottom: "res2a_branch1"
+	top: "res2a_branch1"
+	name: "bn2a_branch1"
+	type: "BatchNorm"
+	batch_norm_param {
+		use_global_stats: true
+	}
+}
+
+layer {
+	bottom: "res2a_branch1"
+	top: "res2a_branch1"
+	name: "scale2a_branch1"
+	type: "Scale"
+	scale_param {
+		bias_term: true
+	}
+}
+
+layer {
+	bottom: "pool1"
+	top: "res2a_branch2a"
+	name: "res2a_branch2a"
+	type: "Convolution"
+	convolution_param {
+		num_output: 64
+		kernel_size: 1
+		pad: 0
+		stride: 1
+		bias_term: false
+	}
+}
+
+layer {
+	bottom: "res2a_branch2a"
+	top: "res2a_branch2a"
+	name: "bn2a_branch2a"
+	type: "BatchNorm"
+	batch_norm_param {
+		use_global_stats: true
+	}
+}
+
+layer {
+	bottom: "res2a_branch2a"
+	top: "res2a_branch2a"
+	name: "scale2a_branch2a"
+	type: "Scale"
+	scale_param {
+		bias_term: true
+	}
+}
+
+layer {
+	bottom: "res2a_branch2a"
+	top: "res2a_branch2a"
+	name: "res2a_branch2a_relu"
+	type: "ReLU"
+}
+
+layer {
+	bottom: "res2a_branch2a"
+	top: "res2a_branch2b"
+	name: "res2a_branch2b"
+	type: "Convolution"
+	convolution_param {
+		num_output: 64
+		kernel_size: 3
+		pad: 1
+		stride: 1
+		bias_term: false
+	}
+}
+
+layer {
+	bottom: "res2a_branch2b"
+	top: "res2a_branch2b"
+	name: "bn2a_branch2b"
+	type: "BatchNorm"
+	batch_norm_param {
+		use_global_stats: true
+	}
+}
+
+layer {
+	bottom: "res2a_branch2b"
+	top: "res2a_branch2b"
+	name: "scale2a_branch2b"
+	type: "Scale"
+	scale_param {
+		bias_term: true
+	}
+}
+
+layer {
+	bottom: "res2a_branch2b"
+	top: "res2a_branch2b"
+	name: "res2a_branch2b_relu"
+	type: "ReLU"
+}
+
+layer {
+	bottom: "res2a_branch2b"
+	top: "res2a_branch2c"
+	name: "res2a_branch2c"
+	type: "Convolution"
+	convolution_param {
+		num_output: 256
+		kernel_size: 1
+		pad: 0
+		stride: 1
+		bias_term: false
+	}
+}
+
+layer {
+	bottom: "res2a_branch2c"
+	top: "res2a_branch2c"
+	name: "bn2a_branch2c"
+	type: "BatchNorm"
+	batch_norm_param {
+		use_global_stats: true
+	}
+}
+
+layer {
+	bottom: "res2a_branch2c"
+	top: "res2a_branch2c"
+	name: "scale2a_branch2c"
+	type: "Scale"
+	scale_param {
+		bias_term: true
+	}
+}
+
+layer {
+	bottom: "res2a_branch1"
+	bottom: "res2a_branch2c"
+	top: "res2a"
+	name: "res2a"
+	type: "Eltwise"
+}
+
+layer {
+	bottom: "res2a"
+	top: "res2a"
+	name: "res2a_relu"
+	type: "ReLU"
+}
+
+layer {
+	bottom: "res2a"
+	top: "res2b_branch2a"
+	name: "res2b_branch2a"
+	type: "Convolution"
+	convolution_param {
+		num_output: 64
+		kernel_size: 1
+		pad: 0
+		stride: 1
+		bias_term: false
+	}
+}
+
+layer {
+	bottom: "res2b_branch2a"
+	top: "res2b_branch2a"
+	name: "bn2b_branch2a"
+	type: "BatchNorm"
+	batch_norm_param {
+		use_global_stats: true
+	}
+}
+
+layer {
+	bottom: "res2b_branch2a"
+	top: "res2b_branch2a"
+	name: "scale2b_branch2a"
+	type: "Scale"
+	scale_param {
+		bias_term: true
+	}
+}
+
+layer {
+	bottom: "res2b_branch2a"
+	top: "res2b_branch2a"
+	name: "res2b_branch2a_relu"
+	type: "ReLU"
+}
+
+layer {
+	bottom: "res2b_branch2a"
+	top: "res2b_branch2b"
+	name: "res2b_branch2b"
+	type: "Convolution"
+	convolution_param {
+		num_output: 64
+		kernel_size: 3
+		pad: 1
+		stride: 1
+		bias_term: false
+	}
+}
+
+layer {
+	bottom: "res2b_branch2b"
+	top: "res2b_branch2b"
+	name: "bn2b_branch2b"
+	type: "BatchNorm"
+	batch_norm_param {
+		use_global_stats: true
+	}
+}
+
+layer {
+	bottom: "res2b_branch2b"
+	top: "res2b_branch2b"
+	name: "scale2b_branch2b"
+	type: "Scale"
+	scale_param {
+		bias_term: true
+	}
+}
+
+layer {
+	bottom: "res2b_branch2b"
+	top: "res2b_branch2b"
+	name: "res2b_branch2b_relu"
+	type: "ReLU"
+}
+
+layer {
+	bottom: "res2b_branch2b"
+	top: "res2b_branch2c"
+	name: "res2b_branch2c"
+	type: "Convolution"
+	convolution_param {
+		num_output: 256
+		kernel_size: 1
+		pad: 0
+		stride: 1
+		bias_term: false
+	}
+}
+
+layer {
+	bottom: "res2b_branch2c"
+	top: "res2b_branch2c"
+	name: "bn2b_branch2c"
+	type: "BatchNorm"
+	batch_norm_param {
+		use_global_stats: true
+	}
+}
+
+layer {
+	bottom: "res2b_branch2c"
+	top: "res2b_branch2c"
+	name: "scale2b_branch2c"
+	type: "Scale"
+	scale_param {
+		bias_term: true
+	}
+}
+
+layer {
+	bottom: "res2a"
+	bottom: "res2b_branch2c"
+	top: "res2b"
+	name: "res2b"
+	type: "Eltwise"
+}
+
+layer {
+	bottom: "res2b"
+	top: "res2b"
+	name: "res2b_relu"
+	type: "ReLU"
+}
+
+
+
+
+
+
+
+
+
+
+layer {
+	bottom: "res2b"
+	top: "res2c_branch2a"
+	name: "res2c_branch2a"
+	type: "Convolution"
+	convolution_param {
+		num_output: 64
+		kernel_size: 1
+		pad: 0
+		stride: 1
+		bias_term: false
+	}
+}
+
+layer {
+	bottom: "res2c_branch2a"
+	top: "res2c_branch2a"
+	name: "bn2c_branch2a"
+	type: "BatchNorm"
+	batch_norm_param {
+		use_global_stats: true
+	}
+}
+
+layer {
+	bottom: "res2c_branch2a"
+	top: "res2c_branch2a"
+	name: "scale2c_branch2a"
+	type: "Scale"
+	scale_param {
+		bias_term: true
+	}
+}
+
+layer {
+	bottom: "res2c_branch2a"
+	top: "res2c_branch2a"
+	name: "res2c_branch2a_relu"
+	type: "ReLU"
+}
+
+layer {
+	bottom: "res2c_branch2a"
+	top: "res2c_branch2b"
+	name: "res2c_branch2b"
+	type: "Convolution"
+	convolution_param {
+		num_output: 64
+		kernel_size: 3
+		pad: 1
+		stride: 1
+		bias_term: false
+	}
+}
+
+layer {
+	bottom: "res2c_branch2b"
+	top: "res2c_branch2b"
+	name: "bn2c_branch2b"
+	type: "BatchNorm"
+	batch_norm_param {
+		use_global_stats: true
+	}
+}
+
+layer {
+	bottom: "res2c_branch2b"
+	top: "res2c_branch2b"
+	name: "scale2c_branch2b"
+	type: "Scale"
+	scale_param {
+		bias_term: true
+	}
+}
+
+layer {
+	bottom: "res2c_branch2b"
+	top: "res2c_branch2b"
+	name: "res2c_branch2b_relu"
+	type: "ReLU"
+}
+
+layer {
+	bottom: "res2c_branch2b"
+	top: "res2c_branch2c"
+	name: "res2c_branch2c"
+	type: "Convolution"
+	convolution_param {
+		num_output: 256
+		kernel_size: 1
+		pad: 0
+		stride: 1
+		bias_term: false
+	}
+}
+
+layer {
+	bottom: "res2c_branch2c"
+	top: "res2c_branch2c"
+	name: "bn2c_branch2c"
+	type: "BatchNorm"
+	batch_norm_param {
+		use_global_stats: true
+	}
+}
+
+layer {
+	bottom: "res2c_branch2c"
+	top: "res2c_branch2c"
+	name: "scale2c_branch2c"
+	type: "Scale"
+	scale_param {
+		bias_term: true
+	}
+}
+
+layer {
+	bottom: "res2b"
+	bottom: "res2c_branch2c"
+	top: "res2c"
+	name: "res2c"
+	type: "Eltwise"
+}
+
+layer {
+	bottom: "res2c"
+	top: "res2c"
+	name: "res2c_relu"
+	type: "ReLU"
+}
+
+layer {
+	bottom: "res2c"
+	top: "res3a_branch1"
+	name: "res3a_branch1"
+	type: "Convolution"
+	convolution_param {
+		num_output: 512
+		kernel_size: 1
+		pad: 0
+		stride: 2
+		bias_term: false
+	}
+}
+
+layer {
+	bottom: "res3a_branch1"
+	top: "res3a_branch1"
+	name: "bn3a_branch1"
+	type: "BatchNorm"
+	batch_norm_param {
+		use_global_stats: true
+	}
+}
+
+layer {
+	bottom: "res3a_branch1"
+	top: "res3a_branch1"
+	name: "scale3a_branch1"
+	type: "Scale"
+	scale_param {
+		bias_term: true
+	}
+}
+
+layer {
+	bottom: "res2c"
+	top: "res3a_branch2a"
+	name: "res3a_branch2a"
+	type: "Convolution"
+	convolution_param {
+		num_output: 128
+		kernel_size: 1
+		pad: 0
+		stride: 2
+		bias_term: false
+	}
+}
+
+layer {
+	bottom: "res3a_branch2a"
+	top: "res3a_branch2a"
+	name: "bn3a_branch2a"
+	type: "BatchNorm"
+	batch_norm_param {
+		use_global_stats: true
+	}
+}
+
+layer {
+	bottom: "res3a_branch2a"
+	top: "res3a_branch2a"
+	name: "scale3a_branch2a"
+	type: "Scale"
+	scale_param {
+		bias_term: true
+	}
+}
+
+layer {
+	bottom: "res3a_branch2a"
+	top: "res3a_branch2a"
+	name: "res3a_branch2a_relu"
+	type: "ReLU"
+}
+
+layer {
+	bottom: "res3a_branch2a"
+	top: "res3a_branch2b"
+	name: "res3a_branch2b"
+	type: "Convolution"
+	convolution_param {
+		num_output: 128
+		kernel_size: 3
+		pad: 1
+		stride: 1
+		bias_term: false
+	}
+}
+
+layer {
+	bottom: "res3a_branch2b"
+	top: "res3a_branch2b"
+	name: "bn3a_branch2b"
+	type: "BatchNorm"
+	batch_norm_param {
+		use_global_stats: true
+	}
+}
+
+layer {
+	bottom: "res3a_branch2b"
+	top: "res3a_branch2b"
+	name: "scale3a_branch2b"
+	type: "Scale"
+	scale_param {
+		bias_term: true
+	}
+}
+
+layer {
+	bottom: "res3a_branch2b"
+	top: "res3a_branch2b"
+	name: "res3a_branch2b_relu"
+	type: "ReLU"
+}
+
+layer {
+	bottom: "res3a_branch2b"
+	top: "res3a_branch2c"
+	name: "res3a_branch2c"
+	type: "Convolution"
+	convolution_param {
+		num_output: 512
+		kernel_size: 1
+		pad: 0
+		stride: 1
+		bias_term: false
+	}
+}
+
+layer {
+	bottom: "res3a_branch2c"
+	top: "res3a_branch2c"
+	name: "bn3a_branch2c"
+	type: "BatchNorm"
+	batch_norm_param {
+		use_global_stats: true
+	}
+}
+
+layer {
+	bottom: "res3a_branch2c"
+	top: "res3a_branch2c"
+	name: "scale3a_branch2c"
+	type: "Scale"
+	scale_param {
+		bias_term: true
+	}
+}
+
+layer {
+	bottom: "res3a_branch1"
+	bottom: "res3a_branch2c"
+	top: "res3a"
+	name: "res3a"
+	type: "Eltwise"
+}
+
+layer {
+	bottom: "res3a"
+	top: "res3a"
+	name: "res3a_relu"
+	type: "ReLU"
+}
+
+layer {
+	bottom: "res3a"
+	top: "res3b_branch2a"
+	name: "res3b_branch2a"
+	type: "Convolution"
+	convolution_param {
+		num_output: 128
+		kernel_size: 1
+		pad: 0
+		stride: 1
+		bias_term: false
+	}
+}
+
+layer {
+	bottom: "res3b_branch2a"
+	top: "res3b_branch2a"
+	name: "bn3b_branch2a"
+	type: "BatchNorm"
+	batch_norm_param {
+		use_global_stats: true
+	}
+}
+
+layer {
+	bottom: "res3b_branch2a"
+	top: "res3b_branch2a"
+	name: "scale3b_branch2a"
+	type: "Scale"
+	scale_param {
+		bias_term: true
+	}
+}
+
+layer {
+	bottom: "res3b_branch2a"
+	top: "res3b_branch2a"
+	name: "res3b_branch2a_relu"
+	type: "ReLU"
+}
+
+layer {
+	bottom: "res3b_branch2a"
+	top: "res3b_branch2b"
+	name: "res3b_branch2b"
+	type: "Convolution"
+	convolution_param {
+		num_output: 128
+		kernel_size: 3
+		pad: 1
+		stride: 1
+		bias_term: false
+	}
+}
+
+layer {
+	bottom: "res3b_branch2b"
+	top: "res3b_branch2b"
+	name: "bn3b_branch2b"
+	type: "BatchNorm"
+	batch_norm_param {
+		use_global_stats: true
+	}
+}
+
+layer {
+	bottom: "res3b_branch2b"
+	top: "res3b_branch2b"
+	name: "scale3b_branch2b"
+	type: "Scale"
+	scale_param {
+		bias_term: true
+	}
+}
+
+layer {
+	bottom: "res3b_branch2b"
+	top: "res3b_branch2b"
+	name: "res3b_branch2b_relu"
+	type: "ReLU"
+}
+
+layer {
+	bottom: "res3b_branch2b"
+	top: "res3b_branch2c"
+	name: "res3b_branch2c"
+	type: "Convolution"
+	convolution_param {
+		num_output: 512
+		kernel_size: 1
+		pad: 0
+		stride: 1
+		bias_term: false
+	}
+}
+
+layer {
+	bottom: "res3b_branch2c"
+	top: "res3b_branch2c"
+	name: "bn3b_branch2c"
+	type: "BatchNorm"
+	batch_norm_param {
+		use_global_stats: true
+	}
+}
+
+layer {
+	bottom: "res3b_branch2c"
+	top: "res3b_branch2c"
+	name: "scale3b_branch2c"
+	type: "Scale"
+	scale_param {
+		bias_term: true
+	}
+}
+
+layer {
+	bottom: "res3a"
+	bottom: "res3b_branch2c"
+	top: "res3b"
+	name: "res3b"
+	type: "Eltwise"
+}
+
+layer {
+	bottom: "res3b"
+	top: "res3b"
+	name: "res3b_relu"
+	type: "ReLU"
+}
+
+layer {
+	bottom: "res3b"
+	top: "res3c_branch2a"
+	name: "res3c_branch2a"
+	type: "Convolution"
+	convolution_param {
+		num_output: 128
+		kernel_size: 1
+		pad: 0
+		stride: 1
+		bias_term: false
+	}
+}
+
+layer {
+	bottom: "res3c_branch2a"
+	top: "res3c_branch2a"
+	name: "bn3c_branch2a"
+	type: "BatchNorm"
+	batch_norm_param {
+		use_global_stats: true
+	}
+}
+
+layer {
+	bottom: "res3c_branch2a"
+	top: "res3c_branch2a"
+	name: "scale3c_branch2a"
+	type: "Scale"
+	scale_param {
+		bias_term: true
+	}
+}
+
+layer {
+	bottom: "res3c_branch2a"
+	top: "res3c_branch2a"
+	name: "res3c_branch2a_relu"
+	type: "ReLU"
+}
+
+layer {
+	bottom: "res3c_branch2a"
+	top: "res3c_branch2b"
+	name: "res3c_branch2b"
+	type: "Convolution"
+	convolution_param {
+		num_output: 128
+		kernel_size: 3
+		pad: 1
+		stride: 1
+		bias_term: false
+	}
+}
+
+layer {
+	bottom: "res3c_branch2b"
+	top: "res3c_branch2b"
+	name: "bn3c_branch2b"
+	type: "BatchNorm"
+	batch_norm_param {
+		use_global_stats: true
+	}
+}
+
+layer {
+	bottom: "res3c_branch2b"
+	top: "res3c_branch2b"
+	name: "scale3c_branch2b"
+	type: "Scale"
+	scale_param {
+		bias_term: true
+	}
+}
+
+layer {
+	bottom: "res3c_branch2b"
+	top: "res3c_branch2b"
+	name: "res3c_branch2b_relu"
+	type: "ReLU"
+}
+
+layer {
+	bottom: "res3c_branch2b"
+	top: "res3c_branch2c"
+	name: "res3c_branch2c"
+	type: "Convolution"
+	convolution_param {
+		num_output: 512
+		kernel_size: 1
+		pad: 0
+		stride: 1
+		bias_term: false
+	}
+}
+
+layer {
+	bottom: "res3c_branch2c"
+	top: "res3c_branch2c"
+	name: "bn3c_branch2c"
+	type: "BatchNorm"
+	batch_norm_param {
+		use_global_stats: true
+	}
+}
+
+layer {
+	bottom: "res3c_branch2c"
+	top: "res3c_branch2c"
+	name: "scale3c_branch2c"
+	type: "Scale"
+	scale_param {
+		bias_term: true
+	}
+}
+
+layer {
+	bottom: "res3b"
+	bottom: "res3c_branch2c"
+	top: "res3c"
+	name: "res3c"
+	type: "Eltwise"
+}
+
+layer {
+	bottom: "res3c"
+	top: "res3c"
+	name: "res3c_relu"
+	type: "ReLU"
+}
+
+layer {
+	bottom: "res3c"
+	top: "res3d_branch2a"
+	name: "res3d_branch2a"
+	type: "Convolution"
+	convolution_param {
+		num_output: 128
+		kernel_size: 1
+		pad: 0
+		stride: 1
+		bias_term: false
+	}
+}
+
+layer {
+	bottom: "res3d_branch2a"
+	top: "res3d_branch2a"
+	name: "bn3d_branch2a"
+	type: "BatchNorm"
+	batch_norm_param {
+		use_global_stats: true
+	}
+}
+
+layer {
+	bottom: "res3d_branch2a"
+	top: "res3d_branch2a"
+	name: "scale3d_branch2a"
+	type: "Scale"
+	scale_param {
+		bias_term: true
+	}
+}
+
+layer {
+	bottom: "res3d_branch2a"
+	top: "res3d_branch2a"
+	name: "res3d_branch2a_relu"
+	type: "ReLU"
+}
+
+layer {
+	bottom: "res3d_branch2a"
+	top: "res3d_branch2b"
+	name: "res3d_branch2b"
+	type: "Convolution"
+	convolution_param {
+		num_output: 128
+		kernel_size: 3
+		pad: 1
+		stride: 1
+		bias_term: false
+	}
+}
+
+layer {
+	bottom: "res3d_branch2b"
+	top: "res3d_branch2b"
+	name: "bn3d_branch2b"
+	type: "BatchNorm"
+	batch_norm_param {
+		use_global_stats: true
+	}
+}
+
+layer {
+	bottom: "res3d_branch2b"
+	top: "res3d_branch2b"
+	name: "scale3d_branch2b"
+	type: "Scale"
+	scale_param {
+		bias_term: true
+	}
+}
+
+layer {
+	bottom: "res3d_branch2b"
+	top: "res3d_branch2b"
+	name: "res3d_branch2b_relu"
+	type: "ReLU"
+}
+
+layer {
+	bottom: "res3d_branch2b"
+	top: "res3d_branch2c"
+	name: "res3d_branch2c"
+	type: "Convolution"
+	convolution_param {
+		num_output: 512
+		kernel_size: 1
+		pad: 0
+		stride: 1
+		bias_term: false
+	}
+}
+
+layer {
+	bottom: "res3d_branch2c"
+	top: "res3d_branch2c"
+	name: "bn3d_branch2c"
+	type: "BatchNorm"
+	batch_norm_param {
+		use_global_stats: true
+	}
+}
+
+layer {
+	bottom: "res3d_branch2c"
+	top: "res3d_branch2c"
+	name: "scale3d_branch2c"
+	type: "Scale"
+	scale_param {
+		bias_term: true
+	}
+}
+
+layer {
+	bottom: "res3c"
+	bottom: "res3d_branch2c"
+	top: "res3d"
+	name: "res3d"
+	type: "Eltwise"
+}
+
+layer {
+	bottom: "res3d"
+	top: "res3d"
+	name: "res3d_relu"
+	type: "ReLU"
+}
+
+layer{
+bottom:"res3d"
+top:"segmap_size_28"
+name: "segmap_size_28"
+	type: "Convolution"
+	convolution_param {
+		num_output: 128
+		kernel_size: 1
+		pad: 0
+		stride: 1
+		bias_term: false
+	}
+}
+
+
+
+layer {
+  name: "segmap_size_56_1"
+  type: "Deconvolution"
+  bottom: "segmap_size_28" 
+  top: "segmap_size_56_1"
+  convolution_param {
+    kernel_size: 4 
+    stride: 2
+    num_output: 64
+    pad: 1
+    weight_filler: { type: "xavier" } 
+    bias_term: false
+  }
+  param { lr_mult: 1 decay_mult: 1 }
+}
+
+
+layer{
+bottom:"res2b"
+top:"segmap_size_56_2"
+name: "segmap_size_56_2"
+	type: "Convolution"
+	convolution_param {
+		num_output: 64
+		kernel_size: 1
+		pad: 0
+		stride: 1
+		bias_term: false
+	}
+}
+
+
+layer {
+  bottom: "segmap_size_56_2"
+  bottom: "segmap_size_56_1"
+  name: "seg_out_56"
+  top:"seg_out_56"
+  type: "Eltwise"
+  eltwise_param {
+    operation: SUM
+  }
+}
+
+
+
+layer {
+  name: "segmap_size_112"
+  type: "Deconvolution"
+  bottom: "seg_out_56" 
+  top: "segmap_size_112"
+  convolution_param {
+    kernel_size: 4 
+    stride: 2
+    num_output: 32
+    pad: 1
+    weight_filler: { type: "xavier" } 
+    bias_term: false
+  }
+  param { lr_mult: 1 decay_mult: 1 }
+}
+
+
+layer {
+  name: "segmap_size_224"
+  type: "Deconvolution"
+  bottom: "segmap_size_112" 
+  top: "segmap_size_224"
+  convolution_param {
+    kernel_size: 4 
+    stride: 2
+    num_output: 16
+    pad: 1
+    weight_filler: { type: "xavier" } 
+    bias_term: false
+  }
+  param { lr_mult: 1 decay_mult: 1 }
+}
+
+
+
+layer {
+  name: "seg_out_1_224"
+  type: "Convolution"
+  bottom: "segmap_size_224"
+  top: "seg_out_1_224"
+  param {
+    name: "seg_out_1_224_w"
+    lr_mult: 10
+    decay_mult: 1
+  }
+  param {
+    name: "seg_out_1_224_b"
+    lr_mult: 20
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 2
+    kernel_size: 3
+    pad: 6
+    dilation: 6
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+
+layer {
+  name: "seg_out_2_224"
+  type: "Convolution"
+  bottom: "segmap_size_224"
+  top: "seg_out_2_224"
+  param {
+    name: "seg_out_2_224_w"
+    lr_mult: 10
+    decay_mult: 1
+  }
+  param {
+    name: "seg_out_2_224_b"
+    lr_mult: 20
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 2
+    kernel_size: 3
+    dilation: 12
+    pad: 12
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+
+layer {
+  name: "seg_out_3_224"
+  type: "Convolution"
+  bottom: "segmap_size_224"
+  top: "seg_out_3_224"
+  param {
+    name: "seg_out_3_224_w"
+    lr_mult: 10
+    decay_mult: 1
+  }
+  param {
+    name: "seg_out_3_224_b"
+    lr_mult: 20
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 2
+    kernel_size: 3
+    dilation: 18
+    pad: 18
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+
+layer {
+  name: "seg_out_4_224"
+  type: "Convolution"
+  bottom: "segmap_size_224"
+  top: "seg_out_4_224"
+  param {
+    name: "seg_out_4_224_w"
+    lr_mult: 10
+    decay_mult: 1
+  }
+  param {
+    name: "seg_out_4_224_b"
+    lr_mult: 20
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 2
+    kernel_size: 3
+    dilation: 24
+    pad: 24
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+
+### SUM the all branches
+
+layer {
+  bottom: "seg_out_1_224"
+  bottom: "seg_out_2_224"
+  bottom: "seg_out_3_224"
+  bottom: "seg_out_4_224"
+  top: "seg_out_224"
+  name: "seg_out_224"
+  type: "Eltwise"
+  eltwise_param {
+    operation: SUM
+  }
+}
+
+layer {
+  name: "argmax"
+  type: "ArgMax"
+  bottom: "seg_out_224"
+  top: "argmax"
+  argmax_param {
+    axis: 1
+  }
+}
+
+
+

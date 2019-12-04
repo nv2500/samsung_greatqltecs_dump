@@ -1,0 +1,41 @@
+service nstd /system/bin/nst GUI
+    socket nst stream 0660 system vendor_lod
+    oneshot
+    disabled
+
+service nstd_stop /system/bin/nst STOP
+    oneshot
+    disabled
+
+service nstd_cli /system/bin/nst SHELL
+#    socket nst stream 0666 system system
+    oneshot
+    disabled
+
+on boot
+#   preoprty linux_on_dex_version will be changed on compile time 
+    setprop linux_on_dex_version 5
+
+on property:linux_on_dex=start
+    start nstd
+
+on property:linux_on_dex=stop
+    start nstd_stop
+
+on property:linux_on_dex=shell
+    start nstd_cli
+
+on property:lxd.adb.mode=tcpip
+    setprop service.adb.tcp.port 5555
+    restart adbd
+
+on property:lxd.adb.mode=usb
+    setprop service.adb.tcp.port 0
+    restart adbd
+
+on property:linux_on_dex.LoD_image=1
+    mkdir /data/media/0/LoD 0770 media_rw media_rw
+    restorecon --recursive --force --lod /data/media/0/
+
+on property:linux_on_dex.LoD_image_P_initial=1
+    restorecon --recursive --force --lod /data/media/0/

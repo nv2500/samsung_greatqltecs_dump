@@ -1,0 +1,9 @@
+<permissions>
+    <privapp-permissions package="com.android.settings">
+        <permission name="android.permission.SHUTDOWN"/>
+        <permission name="android.permission.INTERACT_ACROSS_USERS"/>
+        <permission name="com.samsung.android.spdclient.permission"/>
+        <permission name="com.samsung.android.fota.permission.READ_DATABASES"/>
+        <permission name="com.samsung.android.permission.MODIFY_THEME"/>
+    </privapp-permissions>
+</permissions>

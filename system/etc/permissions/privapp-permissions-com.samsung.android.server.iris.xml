@@ -1,0 +1,8 @@
+
+<permissions>
+    <privapp-permissions package="com.samsung.android.server.iris">
+        <permission name="android.permission.INTERACT_ACROSS_USERS"/>
+        <permission name="android.permission.MANAGE_USERS"/>
+        <permission name="com.samsung.permission.SSENSOR"/>
+    </privapp-permissions>
+</permissions>
